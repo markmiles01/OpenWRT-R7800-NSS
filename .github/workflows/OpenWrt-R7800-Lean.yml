@@ -6,10 +6,20 @@
 # Github: https://github.com/ClayMoreBoy
 #=================================================
 
-name: OpenWrt-R7800-Lean
+name: OpenWrt-R7800-NSS
 
 on:
-# 定时触发
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'     
+        required: false
+        default: false
+    ssh:
+      description: 'SSH connection to Actions'
+      required: false
+      default: 'false'
   schedule:
     - cron: 0 1 * * *
 
@@ -32,21 +42,21 @@ env:
   # 分支
   REPO_BRANCH: master
   # PassWall插件包
-  EX_PKG: false
+  EXTRA_PKG: true
   # 脚本
-  DIY_SH: OpenWrt-R7800-Lean.sh
+  DIY_SH: OpenWRT-R7800-NSS.sh
   # 开启SSH连接
-  SSH_ACTIONS: false
+  SSH_ACTIONS: true
   # 上传分支
   UPLOAD_BRANCH: true
   # 分支
-  BRANCH: R7800-Lean
+  BRANCH: OpenWRT-R7800-NSS
   # Github 用户名
-  GITHUB_USER_NAME: ClayMoreBoy
+  GITHUB_USER_NAME: markmiles01
   # Github 邮箱
   GITHUB_USER_EMAIL: ${{ secrets.EMAIL }}
   # Github
-  GITHUB: github.com/ClayMoreBoy/OpenWrt-Actions-R7800.git
+  GITHUB: github.com/markmiles01/OpenWRT-R7800-NSS
   # 上传固件
   UPLOAD_FIRMWARE: true
   # 上传到奶牛快传
@@ -54,15 +64,19 @@ env:
   # 创建+上传发布
   CREATE_RELEASE: true
   # 编译者
-  BUILD_USER: ClayMoreBoy
+  BUILD_USER: markmiles01
   # 微信通知
   SEND_WECHAT_MSG: false
 
 jobs:
   build:
+        runs-on: ubuntu-latest
+    steps:
+      # Enable tmate debugging of manually-triggered workflows if the input option was provided
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
     if: github.event.repository.owner.id == github.event.sender.id
-    runs-on: ubuntu-latest
-
     steps:
     # 校验本地文件
     - name: Checkout
@@ -101,7 +115,7 @@ jobs:
 
     # 增加 PassWall 插件源 By rohu168
     - name: Update and install feeds passwall
-      if: env.EX_PKG == 'true'
+      if: env.EXTRA_PKG == 'true'
       run: |
         chmod +x ssr-plus_passwall.sh && cp ssr-plus_passwall.sh ./openwrt && cd openwrt && ./ssr-plus_passwall.sh
         
@@ -129,9 +143,9 @@ jobs:
         make defconfig
 
     # SSH连接
-    # - name: SSH connection to Actions
-    #  uses: P3TERX/debugger-action@master
-    #  if: env.SSH_ACTIONS == 'true'
+     - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@main
+      if: env.SSH_ACTIONS == 'true'
 
     # 下载软件包
     - name: Make Download
