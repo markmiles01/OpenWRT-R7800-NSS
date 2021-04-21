@@ -72,7 +72,7 @@ CONFIG_KERNEL_BUILD_USER="markmiles01"
 CONFIG_KERNEL_BUILD_DOMAIN="GitHub Actions @ markmiles01"
 EOF
 
-# 编译R7800固件:
+# R7800:
 cat >> .config <<EOF
 CONFIG_TARGET_ipq806x=y
 CONFIG_TARGET_ipq806x_generic_DEVICE_netgear_r7800=y
@@ -94,23 +94,23 @@ EOF
 # CONFIG_EFI_IMAGES=y
 # EOF
 
-# IPv6支持:
+# IPv6:
 cat >> .config <<EOF
 CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
 CONFIG_PACKAGE_ipv6helper=y
 EOF
 
-# 多文件系统支持:
-# cat >> .config <<EOF
-# CONFIG_PACKAGE_kmod-fs-nfs=y
-# CONFIG_PACKAGE_kmod-fs-nfs-common=y
-# CONFIG_PACKAGE_kmod-fs-nfs-v3=y
-# CONFIG_PACKAGE_kmod-fs-nfs-v4=y
-# CONFIG_PACKAGE_kmod-fs-ntfs=y
-# CONFIG_PACKAGE_kmod-fs-squashfs=y
-# EOF
+# NFS:
+cat >> .config <<EOF
+CONFIG_PACKAGE_kmod-fs-nfs=y
+CONFIG_PACKAGE_kmod-fs-nfs-common=y
+CONFIG_PACKAGE_kmod-fs-nfs-v3=y
+CONFIG_PACKAGE_kmod-fs-nfs-v4=y
+CONFIG_PACKAGE_kmod-fs-ntfs=y
+CONFIG_PACKAGE_kmod-fs-squashfs=y
+EOF
 
-# USB3.0支持:
+# USB3.0:
 cat >> .config <<EOF
 CONFIG_PACKAGE_kmod-usb-ohci=y
 CONFIG_PACKAGE_kmod-usb-ohci-pci=y
@@ -119,15 +119,16 @@ CONFIG_PACKAGE_kmod-usb2-pci=y
 CONFIG_PACKAGE_kmod-usb3=y
 EOF
 
-# 第三方插件选择:
+# luci [standard OpenWRT] app packages:
 cat >> .config <<EOF
 CONFIG_PACKAGE_luci-app-oaf=y #应用过滤
 CONFIG_PACKAGE_luci-app-serverchan=y #微信推送
 CONFIG_PACKAGE_luci-app-adguardhome=y #ADguardHome去广告服务
 CONFIG_PACKAGE_luci-app-smartdns-compat=y #SmartDns服务
+CONFIG_PACKAGE_luci-app-vpn-policy-routing=y #VPN-Policy-Routing
 EOF
 
-# Lean插件选择:
+# Lean:
 cat >> .config <<EOF
 # CONFIG_POSTFIX_TLS is not set
 # CONFIG_POSTFIX_SASL is not set
@@ -286,33 +287,33 @@ CONFIG_PACKAGE_luci-app-guest-wifi=y #WiFi访客网络
 CONFIG_PACKAGE_luci-app-cpufreq=y #CPU 性能优化调节
 EOF
 
-# LuCI主题:
+# luci themes:
 cat >> .config <<EOF
 CONFIG_PACKAGE_luci-theme-argon=y
-# CONFIG_PACKAGE_luci-theme-atmaterial=y
-# CONFIG_PACKAGE_luci-theme-bootstrap is not set
+CONFIG_PACKAGE_luci-theme-atmaterial=y
+CONFIG_PACKAGE_luci-theme-bootstrap=y
 CONFIG_PACKAGE_luci-theme-material=y
-# CONFIG_PACKAGE_luci-theme-bootstrap-mod is not set
-# CONFIG_PACKAGE_luci-theme-netgear is not set
-# CONFIG_PACKAGE_luci-theme-rosy is not set
-# CONFIG_PACKAGE_luci-theme-Butterfly is not set
-# CONFIG_PACKAGE_luci-theme-Butterfly-dark is not set
-# CONFIG_PACKAGE_luci-theme-opentomato is not set
-# CONFIG_PACKAGE_luci-theme-opentomcat is not set
-# CONFIG_PACKAGE_luci-theme-argon-mod is not set
-# CONFIG_PACKAGE_luci-theme-darkmatter is not set
+CONFIG_PACKAGE_luci-theme-bootstrap-mod=y
+CONFIG_PACKAGE_luci-theme-netgear=y
+CONFIG_PACKAGE_luci-theme-rosy=y
+CONFIG_PACKAGE_luci-theme-Butterfly=y
+CONFIG_PACKAGE_luci-theme-Butterfly-dark=y
+CONFIG_PACKAGE_luci-theme-opentomato=y
+CONFIG_PACKAGE_luci-theme-opentomcat=y
+CONFIG_PACKAGE_luci-theme-argon-mod=y
+CONFIG_PACKAGE_luci-theme-darkmatter=y
 EOF
 
-# 常用软件包:
-# cat >> .config <<EOF
-# CONFIG_PACKAGE_curl=y
-# CONFIG_PACKAGE_htop=y
-# CONFIG_PACKAGE_nano=y
-# CONFIG_PACKAGE_screen=y
-# CONFIG_PACKAGE_tree=y
-# CONFIG_PACKAGE_vim-fuller=y
-# CONFIG_PACKAGE_wget=y
-# EOF
+# MISC: 
+cat >> .config <<EOF
+CONFIG_PACKAGE_curl=y
+CONFIG_PACKAGE_htop=y
+CONFIG_PACKAGE_nano=y
+CONFIG_PACKAGE_screen=y
+CONFIG_PACKAGE_tree=y
+CONFIG_PACKAGE_vim-fuller=y
+CONFIG_PACKAGE_wget=y
+EOF
 
 # 
 # ========================固件定制部分结束========================
