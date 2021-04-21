@@ -26,14 +26,14 @@ cp -f ../zzz-default-settings package/lean/default-settings/files/
 sed -i 's/or "1"%>/or "1"%> ( <%=luci.sys.exec("expr `cat \/sys\/class\/thermal\/thermal_zone0\/temp` \/ 1000") or "?"%> \&#8451; ) /g' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
 
 # 修改固件生成名字,增加当天日期(by:左右）
-sed -i 's/IMG_PREFIX:=$(VERSION_DIST_SANITIZED)/IMG_PREFIX:=ClayMoreBoy-$(shell date +%Y%m%d)-$(VERSION_DIST_SANITIZED)/g' include/image.mk
+sed -i 's/IMG_PREFIX:=$(VERSION_DIST_SANITIZED)/IMG_PREFIX:=markmiles01-$(shell date +%Y%m%d)-$(VERSION_DIST_SANITIZED)/g' include/image.mk
 
 # 修改版本号
 cid=$(date "+%Y-%m-%d")
-sed -i 's/R2020/R[${cid}]/g' package/lean/default-settings/files/zzz-default-settings
+sed -i 's/R2021/R[${cid}]/g' package/lean/default-settings/files/zzz-default-settings
 
 # 修改版本号
-sed -i 's/V2020/V${{ env.DATE }}/g' package/base-files/files/etc/banner
+sed -i 's/V2021/V${{ env.DATE }}/g' package/base-files/files/etc/banner
 
 # 添加第三方软件包
 git clone https://github.com/OpenWrt-Actions/OpenAppFilter package/OpenAppFilter
@@ -68,8 +68,8 @@ touch ./.config
 
 # 编译者信息
 cat >> .config <<EOF
-CONFIG_KERNEL_BUILD_USER="ClayMoreBoy"
-CONFIG_KERNEL_BUILD_DOMAIN="GitHub Actions @ ClayMoreBoy"
+CONFIG_KERNEL_BUILD_USER="markmiles01"
+CONFIG_KERNEL_BUILD_DOMAIN="GitHub Actions @ markmiles01"
 EOF
 
 # 编译R7800固件:
