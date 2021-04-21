@@ -21,7 +21,8 @@ DEFAULT_PACKAGES += \
 	kmod-ata-core kmod-ata-ahci kmod-ata-ahci-platform \
 	kmod-usb-core kmod-usb-ohci kmod-usb2 kmod-usb-ledtrig-usbport \
 	kmod-usb-phy-qcom-dwc3 kmod-usb3 kmod-usb-dwc3-qcom \
-	kmod-ath10k-ct wpad-openssl \
+	kmod-usb-uhci kmod-usb-serial kmod-usb-storage usbutils \
+	kmod-usb-storage-uas kmod-ath10k-ct wpad-openssl \
 	uboot-envtools e2fsprogs
 
 $(eval $(call BuildTarget))
